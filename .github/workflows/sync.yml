@@ -28,7 +28,7 @@ jobs:
       # A pull request rather than a push: a new endpoint usually needs a
       # sentence of prose that a generator cannot write, and opening a PR is
       # what creates the moment to write it.
-      - uses: peter-evans/create-pull-request@v6
+      - uses: peter-evans/create-pull-request@v7
         with:
           commit-message: 'chore: refresh routes.json from CertPilot'
           branch: sync/routes

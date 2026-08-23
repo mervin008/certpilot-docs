@@ -40,7 +40,17 @@ jobs:
       - name: Verify every route is documented
         run: npm run check
 
+      # enablement turns Pages on via the API if it is not already on. Without
+      # it the first run of this workflow on a fresh repository fails with
+      # "Get Pages site failed" — the action looks for a Pages site to
+      # configure, finds none, and there is no way to create one from here.
+      # Enabling it in the repository settings by hand works equally well, but
+      # then the workflow only succeeds on a repository somebody remembered to
+      # prepare, which is a poor property for a deploy to have.
       - uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
