@@ -40,13 +40,17 @@ jobs:
       - name: Verify every route is documented
         run: npm run check
 
-      # enablement turns Pages on via the API if it is not already on. Without
-      # it the first run of this workflow on a fresh repository fails with
-      # "Get Pages site failed" — the action looks for a Pages site to
-      # configure, finds none, and there is no way to create one from here.
-      # Enabling it in the repository settings by hand works equally well, but
-      # then the workflow only succeeds on a repository somebody remembered to
-      # prepare, which is a poor property for a deploy to have.
+      # Pages must be switched on once, by a person, in
+      # Settings -> Pages -> Build and deployment -> Source: GitHub Actions.
+      #
+      # It cannot be done from here. enablement: true asks the API to create
+      # the Pages site, but GITHUB_TOKEN is an app installation token and
+      # creating a Pages site requires repository-admin rights, which no
+      # workflow token can hold — the call comes back "Resource not accessible
+      # by integration". The flag is kept because once Pages exists this step
+      # finds it and does nothing, and because when it is missing the failure
+      # names the real problem instead of the bare "Get Pages site failed"
+      # you get without it.
       - uses: actions/configure-pages@v5
         with:
           enablement: true

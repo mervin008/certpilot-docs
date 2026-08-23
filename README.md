@@ -12,6 +12,18 @@ and a different toolchain from the Go control plane. Keeping it here means a
 typo fix does not rebuild six Go modules, and the docs can be deployed without
 shipping a release of CertPilot.
 
+## One-time setup
+
+Pages has to be switched on by hand before the first deploy can succeed:
+
+**Settings → Pages → Build and deployment → Source: _GitHub Actions_**
+
+The workflow cannot do this for itself. Creating a Pages site requires
+repository-admin rights, and `GITHUB_TOKEN` is an app installation token that
+cannot hold them — it fails with *"Resource not accessible by integration"*. If
+you fork or recreate this repository, expect the first deploy to fail until you
+have done the above, then re-run it.
+
 ## The route table is generated
 
 The endpoint pages under `docs/api/reference/` are **generated**, not written.
