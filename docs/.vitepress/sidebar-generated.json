@@ -1,0 +1,87 @@
+[
+  {
+    "text": "Health",
+    "link": "/api/reference/health",
+    "count": 1
+  },
+  {
+    "text": "Dashboard",
+    "link": "/api/reference/dashboard",
+    "count": 3
+  },
+  {
+    "text": "Live event stream",
+    "link": "/api/reference/live-event-stream",
+    "count": 1
+  },
+  {
+    "text": "Certificates",
+    "link": "/api/reference/certificates",
+    "count": 7
+  },
+  {
+    "text": "PKI / CA Management",
+    "link": "/api/reference/pki-ca-management",
+    "count": 12
+  },
+  {
+    "text": "CA Accounts & Gateways",
+    "link": "/api/reference/ca-accounts-gateways",
+    "count": 6
+  },
+  {
+    "text": "Renewal queue",
+    "link": "/api/reference/renewal-queue",
+    "count": 5
+  },
+  {
+    "text": "Deployment",
+    "link": "/api/reference/deployment",
+    "count": 14
+  },
+  {
+    "text": "Discovery",
+    "link": "/api/reference/discovery",
+    "count": 11
+  },
+  {
+    "text": "Certificate Transparency",
+    "link": "/api/reference/certificate-transparency",
+    "count": 6
+  },
+  {
+    "text": "Cloud inventory",
+    "link": "/api/reference/cloud-inventory",
+    "count": 7
+  },
+  {
+    "text": "Agents",
+    "link": "/api/reference/agents",
+    "count": 12
+  },
+  {
+    "text": "The agent API",
+    "link": "/api/reference/the-agent-api",
+    "count": 7
+  },
+  {
+    "text": "Notification channels",
+    "link": "/api/reference/notification-channels",
+    "count": 5
+  },
+  {
+    "text": "Custom metadata fields",
+    "link": "/api/reference/custom-metadata-fields",
+    "count": 4
+  },
+  {
+    "text": "Policies",
+    "link": "/api/reference/policies",
+    "count": 5
+  },
+  {
+    "text": "Display Tokens",
+    "link": "/api/reference/display-tokens",
+    "count": 3
+  }
+]

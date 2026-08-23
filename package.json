@@ -1,0 +1,18 @@
+{
+  "name": "certpilot-docs",
+  "version": "0.1.0",
+  "private": true,
+  "description": "API documentation for CertPilot",
+  "type": "module",
+  "scripts": {
+    "dev": "npm run gen && vitepress dev docs",
+    "build": "npm run gen && vitepress build docs",
+    "preview": "vitepress preview docs",
+    "gen": "node scripts/generate-endpoints.mjs",
+    "sync": "node scripts/sync-routes.mjs",
+    "check": "node scripts/check-drift.mjs"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.3"
+  }
+}

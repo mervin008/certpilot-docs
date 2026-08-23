@@ -1,0 +1,43 @@
+name: Sync routes
+
+# The docs repo vendors routes.json so that its build needs no Go toolchain.
+# The cost of vendoring is drift, so this closes the gap on a schedule rather
+# than relying on somebody remembering after they merge a new endpoint.
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - run: npm run sync
+
+      # A pull request rather than a push: a new endpoint usually needs a
+      # sentence of prose that a generator cannot write, and opening a PR is
+      # what creates the moment to write it.
+      - uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: 'chore: refresh routes.json from CertPilot'
+          branch: sync/routes
+          delete-branch: true
+          title: 'Refresh the route table from CertPilot'
+          body: |
+            `routes.json` has drifted from `core/api/router.go`.
+
+            The endpoint pages are generated, so they will pick this up
+            automatically. Check whether any new route needs prose — the
+            generator carries the router's comments through, but a route with
+            no comment arrives here with no explanation.

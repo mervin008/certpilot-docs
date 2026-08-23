@@ -1,0 +1,7 @@
+node_modules/
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+# Generated from routes.json by scripts/generate-endpoints.mjs. Committing
+# these would mean reviewing a diff of machine output on every route change.
+docs/api/reference/
+.DS_Store

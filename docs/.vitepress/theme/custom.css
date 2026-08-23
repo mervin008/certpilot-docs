@@ -1,0 +1,151 @@
+/*
+ * CertPilot's palette, applied to VitePress.
+ *
+ * The console and the documentation are the same product, and a reader who
+ * moves between them should not feel they have changed tools. The tokens below
+ * are the ones from frontend/src/assets/styles/main.css; the two rules that
+ * matter are kept here as well:
+ *
+ *   Colour means severity. Warm colour marks something that needs a person.
+ *   Nothing else in this stylesheet is allowed to be red or amber.
+ *
+ *   Monospace is the primary face for anything a machine produced — paths,
+ *   methods, tokens, JSON. Prose stays proportional so it is readable at
+ *   length.
+ */
+
+:root {
+  --cp-signal: #0a7ea4;
+  --cp-critical: #c22219;
+  --cp-warning: #a35c00;
+  --cp-ok: #3f7a56;
+
+  --vp-c-brand-1: var(--cp-signal);
+  --vp-c-brand-2: #0d95c0;
+  --vp-c-brand-3: #12a8d8;
+  --vp-c-brand-soft: rgb(10 126 164 / 0.14);
+
+  --vp-font-family-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo,
+    'Cascadia Mono', 'Roboto Mono', monospace;
+
+  /* 2px, matching the console's sharp edges. */
+  --vp-code-block-radius: 2px;
+}
+
+.dark {
+  --cp-signal: #5ac8fa;
+
+  /* The default brand button is white text on a light blue fill — unreadable
+     at the one place the page is asking to be clicked. */
+  --vp-button-brand-bg: #5ac8fa;
+  --vp-button-brand-border: #5ac8fa;
+  --vp-button-brand-text: #07080a;
+  --vp-button-brand-hover-bg: #7ad4fb;
+  --vp-button-brand-hover-border: #7ad4fb;
+  --vp-button-brand-hover-text: #07080a;
+  --vp-button-brand-active-bg: #3fb6e8;
+  --vp-button-brand-active-border: #3fb6e8;
+  --vp-button-brand-active-text: #07080a;
+  --cp-critical: #ff4d3d;
+  --cp-warning: #ffa726;
+  --cp-ok: #58a06f;
+
+  --vp-c-bg: #07080a;
+  --vp-c-bg-alt: #0b0d10;
+  --vp-c-bg-soft: #101317;
+  --vp-c-bg-elv: #131820;
+
+  --vp-c-divider: #1c2126;
+  --vp-c-border: #2b333b;
+  --vp-c-gutter: #1c2126;
+
+  --vp-c-text-1: #e8ecef;
+  --vp-c-text-2: #939ca6;
+  --vp-c-text-3: #626b74;
+
+  --vp-c-brand-1: var(--cp-signal);
+  --vp-c-brand-2: #7ad4fb;
+  --vp-c-brand-3: #9bdffc;
+  --vp-c-brand-soft: rgb(90 200 250 / 0.14);
+}
+
+/* Sharp edges throughout, not the default rounded card look. */
+.vp-doc div[class*='language-'],
+.custom-block,
+.vp-doc table {
+  border-radius: 2px;
+}
+
+/* ── Route tables ───────────────────────────────────────────────────────────
+ * An endpoint table is read by scanning the method column, so the method has
+ * to be the thing the eye lands on. Tabular numerals keep paths that differ
+ * only in a segment aligned with each other.
+ */
+.vp-doc table {
+  display: table;
+  width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+.vp-doc th {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  font-weight: 500;
+}
+
+.vp-doc td code,
+.vp-doc th code {
+  font-size: 0.85em;
+}
+
+/* The HTTP method. Only DELETE is coloured.
+ *
+ * The console's rule is that warm colour marks something needing a person, and
+ * a reference table is not an alert — so GET, POST, PUT and PATCH stay neutral
+ * and the eye is not asked to sort five colours. DELETE is the exception
+ * because in this product it rarely means "remove a row": deleting a
+ * deployment target stops an estate being deployed to while every renewal
+ * carries on reporting success. That deserves to look different.
+ */
+.vp-doc td .m {
+  background: transparent;
+  padding: 0;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+}
+.vp-doc td .m-delete { color: var(--cp-critical); }
+
+/* ── Headings for individual routes ─────────────────────────────────────── */
+.vp-doc h3 {
+  font-family: var(--vp-font-family-mono);
+  font-size: 1rem;
+  border-top: 1px solid var(--vp-c-divider);
+  padding-top: 1.5rem;
+  margin-top: 2.5rem;
+}
+
+.vp-doc h3 code {
+  background: transparent;
+  padding: 0;
+  font-size: 1em;
+  color: var(--vp-c-text-1);
+}
+
+/* Two-column fact tables under each route: no header row, so the left column
+ * carries the labels and should recede. */
+.vp-doc h3 + table th { display: none; }
+.vp-doc h3 + table td:first-child {
+  color: var(--vp-c-text-3);
+  width: 12rem;
+  white-space: nowrap;
+}
+
+/* ── Severity, for prose that needs it ──────────────────────────────────── */
+.cp-critical { color: var(--cp-critical); font-weight: 600; }
+.cp-warning  { color: var(--cp-warning);  font-weight: 600; }
+.cp-ok       { color: var(--cp-ok);       font-weight: 600; }
+
+/* Wide tables scroll inside themselves rather than pushing the page sideways. */
+.vp-doc .table-wrapper { overflow-x: auto; }
