@@ -10,12 +10,55 @@ Tokens are verified against `auth.jwks_url` (preferred) or `auth.jwt_secret`
 (a legacy shared secret). An invalid or expired token is **always** rejected —
 there is no development mode in which a bad token is accepted.
 
-The role is read from `app_metadata.certpilot_role`. It is read from
-`app_metadata` rather than `user_metadata` for a specific reason: `user_metadata`
-is writable by the user the token belongs to, so trusting it would let any
-account promote itself to admin.
+### The token says who you are, not what you may do
 
-A token with no recognised role is treated as `viewer`, not rejected.
+The provider is the authority on identity. **CertPilot is the authority on
+role**, and holds it in its own `users` table keyed on the pair
+`(issuer, subject)`.
+
+A token that asserts `certpilot_role: admin` does not get admin. The role that
+governs a request is the one stored here, and a first sign-in is recorded as
+`viewer` unless the address is listed in `auth.bootstrap_admins`.
+
+This is deliberate. A team that owns the CA hierarchy rarely owns the identity
+provider, and putting every promotion behind an Okta administrator means it
+lands whenever that person's token next refreshes rather than when the decision
+was made.
+
+Two consequences worth planning for:
+
+- **A sign-in never changes a role.** Removing an address from
+  `bootstrap_admins` does not demote anybody, and adding one does not promote an
+  existing account.
+- **A subject is scoped to its issuer.** The same subject string from two
+  providers is two different people. Changing `auth.issuer` creates new users
+  rather than re-binding the old ones.
+
+`GET /me` reports the stored role. Do not decode the token to decide what to
+show — the API stops honouring a claim the moment somebody is demoted, and a UI
+reading the claim would keep offering controls that now 403.
+
+### Suspension
+
+A user can be suspended in CertPilot. The provider still accepts them, so
+sign-in succeeds and **every API request is refused with 403**. Suspension is
+not deletion: the row stays so that the audit log attributing actions to that
+subject continues to mean something.
+
+### Subjects are opaque strings
+
+A `sub` is not a UUID. OpenID Connect guarantees only that it is a
+case-sensitive string of at most 255 ASCII characters, and real providers
+differ widely:
+
+| Provider | Example `sub` |
+|:--|:--|
+| Okta | `00u9vme99nxudvxZA0h7` |
+| Google Workspace | `110169484474386276334` |
+| Auth0 | `auth0\|507f1f77bcf86cd799439011` |
+| Keycloak / Entra `oid` | `a1b2c3d4-e5f6-7890-abcd-ef1234567890` |
+
+CertPilot stores all of these as text, in `users` and in every actor column.
 
 ### Anonymous access
 

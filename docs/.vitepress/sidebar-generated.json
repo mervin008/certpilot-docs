@@ -83,5 +83,15 @@
     "text": "Display Tokens",
     "link": "/api/reference/display-tokens",
     "count": 3
+  },
+  {
+    "text": "Sign-in discovery",
+    "link": "/api/reference/sign-in-discovery",
+    "count": 1
+  },
+  {
+    "text": "The caller's own identity",
+    "link": "/api/reference/the-caller-s-own-identity",
+    "count": 1
   }
 ]

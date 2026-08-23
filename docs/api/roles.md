@@ -3,6 +3,9 @@
 Four roles, in ascending order of privilege. **`admin` passes every check** —
 a route gated at operator admits operators and admins, and nobody else.
 
+The role comes from **CertPilot's own `users` table**, not from a claim on the
+token. See [Authentication](/api/authentication#the-token-says-who-you-are-not-what-you-may-do).
+
 | Role | Read | Issue / renew | Delete | Export private keys |
 |:--|:-:|:-:|:-:|:-:|
 | `admin` | ✅ | ✅ | ✅ | ✅ |
