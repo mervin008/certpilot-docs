@@ -1,17 +1,35 @@
 /*
- * CertPilot's palette, applied to VitePress.
+ * CertPilot documentation.
  *
- * The console and the documentation are the same product, and a reader who
- * moves between them should not feel they have changed tools. The tokens below
- * are the ones from frontend/src/assets/styles/main.css; the two rules that
- * matter are kept here as well:
+ * ── Why this does not look like the console ──────────────────────────────────
+ *
+ * It used to, deliberately: this stylesheet opened by arguing that the console
+ * and the documentation are the same product and a reader moving between them
+ * should not feel they had changed tools.
+ *
+ * That was the wrong conclusion from a right observation. They are the same
+ * product and they are not the same job. The console is an instrument, watched
+ * under pressure, and everything about it is tuned for scanning: monospace
+ * throughout, tabular numerals, thirty-five rows on a screen, colour reserved
+ * so that one expiring authority is impossible to miss. Documentation is read,
+ * at length, usually by someone who is not in trouble yet. Setting a page of
+ * explanation in a dense monospace grid because the dashboard is dense costs
+ * the reader the thing this surface is actually for.
+ *
+ * So the palette and the brand carry over, and the typography does not:
+ *
+ *   IBM Plex Sans for prose, at a real reading size and measure.
+ *   JetBrains Mono for anything a machine produced: methods, paths, handlers,
+ *   JSON. Machine output stays monospace because alignment is meaning there.
+ *
+ * ── The rules that do carry over ─────────────────────────────────────────────
  *
  *   Colour means severity. Warm colour marks something that needs a person.
  *   Nothing else in this stylesheet is allowed to be red or amber.
  *
- *   Monospace is the primary face for anything a machine produced — paths,
- *   methods, tokens, JSON. Prose stays proportional so it is readable at
- *   length.
+ *   Sharp edges. 2px, everywhere, including the buttons. VitePress ships
+ *   full-radius pills, and the previous stylesheet squared the code blocks and
+ *   tables while leaving the pills alone: one page, two shape systems.
  */
 
 :root {
@@ -25,18 +43,31 @@
   --vp-c-brand-3: #12a8d8;
   --vp-c-brand-soft: rgb(10 126 164 / 0.14);
 
-  --vp-font-family-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo,
-    'Cascadia Mono', 'Roboto Mono', monospace;
+  /* Prose first. The console's variable of the same name is the mono stack;
+     here the default face is the one you read a paragraph in. */
+  --vp-font-family-base: 'IBM Plex Sans Variable', -apple-system,
+    BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
-  /* 2px, matching the console's sharp edges. */
+  --vp-font-family-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono',
+    SFMono-Regular, Menlo, 'Cascadia Mono', 'Roboto Mono', monospace;
+
   --vp-code-block-radius: 2px;
+
+  /* A slightly warm off-white rather than the console's clinical grey. Enough
+     to read as paper on a long page without becoming a cream. */
+  --vp-c-bg: #fcfcfb;
+  --vp-c-bg-alt: #f6f6f4;
+  --vp-c-bg-soft: #f6f6f4;
 }
 
 .dark {
   --cp-signal: #5ac8fa;
+  --cp-critical: #ff4d3d;
+  --cp-warning: #ffa726;
+  --cp-ok: #58a06f;
 
-  /* The default brand button is white text on a light blue fill — unreadable
-     at the one place the page is asking to be clicked. */
+  /* The default brand button is white text on a light blue fill, which is
+     unreadable at the one place the page is asking to be clicked. */
   --vp-button-brand-bg: #5ac8fa;
   --vp-button-brand-border: #5ac8fa;
   --vp-button-brand-text: #07080a;
@@ -46,22 +77,27 @@
   --vp-button-brand-active-bg: #3fb6e8;
   --vp-button-brand-active-border: #3fb6e8;
   --vp-button-brand-active-text: #07080a;
-  --cp-critical: #ff4d3d;
-  --cp-warning: #ffa726;
-  --cp-ok: #58a06f;
 
-  --vp-c-bg: #07080a;
-  --vp-c-bg-alt: #0b0d10;
-  --vp-c-bg-soft: #101317;
-  --vp-c-bg-elv: #131820;
+  /*
+   * A step lighter than the console's #07080a.
+   *
+   * The console is near-black because it is often the only lit thing in a room
+   * and because its job is to make one warm-coloured row unmissable. A
+   * documentation page is a wall of text; at that contrast it glares, and long
+   * reading is what this surface is for.
+   */
+  --vp-c-bg: #0d0f12;
+  --vp-c-bg-alt: #131519;
+  --vp-c-bg-soft: #171a1f;
+  --vp-c-bg-elv: #1a1e24;
 
-  --vp-c-divider: #1c2126;
-  --vp-c-border: #2b333b;
-  --vp-c-gutter: #1c2126;
+  --vp-c-divider: #232830;
+  --vp-c-border: #333a44;
+  --vp-c-gutter: #232830;
 
   --vp-c-text-1: #e8ecef;
-  --vp-c-text-2: #939ca6;
-  --vp-c-text-3: #626b74;
+  --vp-c-text-2: #a4adb7;
+  --vp-c-text-3: #6e7883;
 
   --vp-c-brand-1: var(--cp-signal);
   --vp-c-brand-2: #7ad4fb;
@@ -69,11 +105,50 @@
   --vp-c-brand-soft: rgb(90 200 250 / 0.14);
 }
 
-/* Sharp edges throughout, not the default rounded card look. */
+/* ── Shape lock ─────────────────────────────────────────────────────────────
+ * One radius for the whole site. Mixed shape systems are the fastest way to
+ * make a considered page look assembled.
+ */
 .vp-doc div[class*='language-'],
 .custom-block,
-.vp-doc table {
-  border-radius: 2px;
+.vp-doc table,
+.VPButton,
+.DocSearch-Button,
+.VPNavBarSearch .DocSearch-Button,
+input,
+.VPLocalSearchBox .search-bar {
+  border-radius: 2px !important;
+}
+
+/* ── Reading ────────────────────────────────────────────────────────────────
+ *
+ * The measure is the whole point of setting documentation in a proportional
+ * face. Left full-width, a 1400px container gives lines of 150 characters and
+ * the eye loses the start of the next one.
+ *
+ * Applied to the text elements rather than the container, so tables, code
+ * blocks and diagrams keep the full width they need.
+ */
+.vp-doc p,
+.vp-doc li,
+.vp-doc blockquote {
+  max-width: 74ch;
+  line-height: 1.7;
+}
+
+.vp-doc {
+  font-size: 16px;
+}
+
+.vp-doc h1 {
+  letter-spacing: -0.024em;
+  line-height: 1.15;
+}
+
+.vp-doc h2 {
+  letter-spacing: -0.016em;
+  margin-top: 3rem;
+  padding-top: 1.75rem;
 }
 
 /* ── Route tables ───────────────────────────────────────────────────────────
@@ -88,8 +163,9 @@
 }
 
 .vp-doc th {
-  font-size: 0.75rem;
-  letter-spacing: 0.06em;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--vp-c-text-3);
   font-weight: 500;
@@ -103,7 +179,7 @@
 /* The HTTP method. Only DELETE is coloured.
  *
  * The console's rule is that warm colour marks something needing a person, and
- * a reference table is not an alert — so GET, POST, PUT and PATCH stay neutral
+ * a reference table is not an alert, so GET, POST, PUT and PATCH stay neutral
  * and the eye is not asked to sort five colours. DELETE is the exception
  * because in this product it rarely means "remove a row": deleting a
  * deployment target stops an estate being deployed to while every renewal
@@ -117,10 +193,16 @@
 }
 .vp-doc td .m-delete { color: var(--cp-critical); }
 
-/* ── Headings for individual routes ─────────────────────────────────────── */
+/* ── Headings for individual routes ─────────────────────────────────────────
+ * A route heading is machine output, so it stays monospace even though the
+ * prose around it no longer is. This is the distinction the whole type system
+ * rests on and it is most visible right here.
+ */
 .vp-doc h3 {
   font-family: var(--vp-font-family-mono);
   font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   border-top: 1px solid var(--vp-c-divider);
   padding-top: 1.5rem;
   margin-top: 2.5rem;
@@ -137,6 +219,8 @@
  * carries the labels and should recede. */
 .vp-doc h3 + table th { display: none; }
 .vp-doc h3 + table td:first-child {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.8125rem;
   color: var(--vp-c-text-3);
   width: 12rem;
   white-space: nowrap;
@@ -149,3 +233,15 @@
 
 /* Wide tables scroll inside themselves rather than pushing the page sideways. */
 .vp-doc .table-wrapper { overflow-x: auto; }
+
+/*
+ * The home page supplies its own container and rhythm.
+ *
+ * Only the horizontal padding is dropped. `.VPContent` also carries the offset
+ * for the fixed navigation bar, and zeroing it outright put the headline
+ * underneath the nav with its ascenders clipped.
+ */
+.VPPage:has(.home) {
+  padding-left: 0;
+  padding-right: 0;
+}

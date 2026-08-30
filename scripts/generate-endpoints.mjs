@@ -158,6 +158,38 @@ writeFileSync(
   JSON.stringify(sidebar, null, 2) + '\n',
 )
 
+// ── Census ────────────────────────────────────────────────────────────────
+//
+// The figures the home page quotes about this API.
+//
+// They are emitted here rather than typed into `index.md` because they had
+// already gone stale: the page advertised "109 endpoints" against a router that
+// serves 111. A number a reader can check against the table below it is worse
+// than no number at all, and hand-maintained counts drift the moment somebody
+// adds a route — the same failure the generated tables exist to prevent.
+const methodCounts = {}
+for (const r of doc.routes) methodCounts[r.method] = (methodCounts[r.method] ?? 0) + 1
+
+const census = {
+  routeCount: doc.route_count,
+  sectionCount: sections.length,
+  roles: doc.roles,
+  methods: METHOD_ORDER.filter((m) => methodCounts[m]).map((m) => ({
+    method: m,
+    count: methodCounts[m],
+  })),
+  // Endpoints an unattended wall screen may read. Worth stating plainly: it is
+  // the one credential in the product that is deliberately weaker than a person.
+  displayTokenReadable: doc.routes.filter((r) => r.display_token).length,
+  source: doc.source,
+  sections: sections.map((s) => ({ text: s, count: bySection.get(s).length })),
+}
+
+writeFileSync(
+  join(root, 'docs/.vitepress/census-generated.json'),
+  JSON.stringify(census, null, 2) + '\n',
+)
+
 const covered = sections.reduce((n, s) => n + bySection.get(s).length, 0)
 if (covered !== doc.route_count) {
   console.error(`generate-endpoints: ${covered} of ${doc.route_count} routes rendered`)

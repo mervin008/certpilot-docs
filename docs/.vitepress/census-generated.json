@@ -1,0 +1,112 @@
+{
+  "routeCount": 111,
+  "sectionCount": 19,
+  "roles": [
+    "viewer",
+    "auditor",
+    "operator",
+    "admin"
+  ],
+  "methods": [
+    {
+      "method": "GET",
+      "count": 45
+    },
+    {
+      "method": "POST",
+      "count": 38
+    },
+    {
+      "method": "PATCH",
+      "count": 1
+    },
+    {
+      "method": "PUT",
+      "count": 9
+    },
+    {
+      "method": "DELETE",
+      "count": 18
+    }
+  ],
+  "displayTokenReadable": 39,
+  "source": "core/api/router.go",
+  "sections": [
+    {
+      "text": "Health",
+      "count": 1
+    },
+    {
+      "text": "Dashboard",
+      "count": 3
+    },
+    {
+      "text": "Live event stream",
+      "count": 1
+    },
+    {
+      "text": "Certificates",
+      "count": 7
+    },
+    {
+      "text": "PKI / CA Management",
+      "count": 12
+    },
+    {
+      "text": "CA Accounts & Gateways",
+      "count": 6
+    },
+    {
+      "text": "Renewal queue",
+      "count": 5
+    },
+    {
+      "text": "Deployment",
+      "count": 14
+    },
+    {
+      "text": "Discovery",
+      "count": 11
+    },
+    {
+      "text": "Certificate Transparency",
+      "count": 6
+    },
+    {
+      "text": "Cloud inventory",
+      "count": 7
+    },
+    {
+      "text": "Agents",
+      "count": 12
+    },
+    {
+      "text": "The agent API",
+      "count": 7
+    },
+    {
+      "text": "Notification channels",
+      "count": 5
+    },
+    {
+      "text": "Custom metadata fields",
+      "count": 4
+    },
+    {
+      "text": "Policies",
+      "count": 5
+    },
+    {
+      "text": "Display Tokens",
+      "count": 3
+    },
+    {
+      "text": "Sign-in discovery",
+      "count": 1
+    },
+    {
+      "text": "The caller's own identity",
+      "count": 1
+    }
+  ]
+}
