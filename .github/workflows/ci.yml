@@ -19,3 +19,9 @@ jobs:
         run: npm run check
       - name: Verify the vendored route table is current
         run: npm run sync -- --check
+
+      # The prose is vendored on the same terms as the route table, and drifts
+      # the same way: somebody improves an explanation in the code repository
+      # and this site keeps serving the old one.
+      - name: Verify the vendored guides are current
+        run: npm run sync:guides -- --check

@@ -1,6 +1,7 @@
-name: Sync routes
+name: Sync routes and guides
 
-# The docs repo vendors routes.json so that its build needs no Go toolchain.
+# The docs repo vendors routes.json and the guide prose so that its build needs
+# no Go toolchain and no checkout of the code.
 # The cost of vendoring is drift, so this closes the gap on a schedule rather
 # than relying on somebody remembering after they merge a new endpoint.
 on:
@@ -24,16 +25,17 @@ jobs:
       - run: npm ci
 
       - run: npm run sync
+      - run: npm run sync:guides
 
       # A pull request rather than a push: a new endpoint usually needs a
       # sentence of prose that a generator cannot write, and opening a PR is
       # what creates the moment to write it.
       - uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: 'chore: refresh routes.json from CertPilot'
-          branch: sync/routes
+          commit-message: 'chore: refresh routes.json and guides from CertPilot'
+          branch: sync/upstream
           delete-branch: true
-          title: 'Refresh the route table from CertPilot'
+          title: 'Refresh the route table and guides from CertPilot'
           body: |
             `routes.json` has drifted from `core/api/router.go`.
 

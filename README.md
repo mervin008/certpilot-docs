@@ -50,6 +50,52 @@ The router's own comments explain why each endpoint is gated where it is, and
 those are carried through as prose on each route. **Edit the router, not the
 generated page.**
 
+## The prose is vendored too
+
+The route table answers "what exists and who may call it". It does not answer
+"what do I send", which is the question a reader actually arrives with, and no
+amount of generating gets you there from a router: that `common_name` and
+`csr_pem` are mutually exclusive is a fact about the handler, not the route.
+
+That explanation was already written, in `docs/api-reference.md` in the code
+repository, where it was readable only by somebody who had cloned the code --
+precisely the audience that needs it least. `scripts/sync-guides.mjs` splits
+that file on its H2 headings into `guides/`, one fragment per resource, and
+`generate-endpoints.mjs` sets each fragment beside the route table for the same
+resource. A reader gets the table and the examples on one page.
+
+```bash
+npm run sync:guides                # refresh from the default branch
+npm run sync:guides -- --check     # exit 1 if stale (CI runs this)
+
+# Author the prose in the code repository, then sync from a local checkout:
+CERTPILOT_GUIDE_PATH=../pki_project/docs/api-reference.md npm run sync:guides
+```
+
+**Edit `docs/api-reference.md` in the code repository, not `guides/`.** The
+fragments carry a header saying so, and CI fails if they drift.
+
+Three transformations happen on the way in, all because a document written to
+live in one repository does not survive being published from another:
+
+- **Headings are promoted one level.** They sat under an H2 for the resource;
+  here the resource is the H1, so they belong at H2. Demoting them instead put
+  every one at H4, and this site's outline is configured for levels 2 and 3, so
+  ninety lines per page had no table-of-contents entry at all.
+- **Repository-relative links become GitHub URLs.** `../pkg/agentauth` resolved
+  to a real directory in the code repository and to nothing here.
+- **Anchors into skipped sections are repointed**, via `ANCHOR_TO_PAGE`. An
+  unlisted one is a hard error rather than a guess.
+
+The opening ASCII route listing in each source section is dropped, because the
+generated table sits directly above it saying the same thing with roles filled
+in and paths linked, and the ASCII one is the copy that can be wrong.
+
+Sections with no matching route section are reported and skipped. Today that is
+none; `Health`, `Sign-in discovery`, `The caller's own identity`, `The agent
+API` and `Custom metadata fields` have no prose in the source yet, so those
+pages render as they always did.
+
 ## Working on it
 
 ```bash

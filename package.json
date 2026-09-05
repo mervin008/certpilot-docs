@@ -10,6 +10,7 @@
     "preview": "vitepress preview docs",
     "gen": "node scripts/generate-endpoints.mjs",
     "sync": "node scripts/sync-routes.mjs",
+    "sync:guides": "node scripts/sync-guides.mjs",
     "check": "node scripts/check-drift.mjs"
   },
   "devDependencies": {

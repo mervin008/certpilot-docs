@@ -9,7 +9,7 @@
 // own comments and is carried through as the "note" field, so the explanation
 // sits next to the code it describes and cannot drift from it either.
 
-import { readFileSync, writeFileSync, mkdirSync, rmSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, rmSync, existsSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -17,6 +17,27 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const outDir = join(root, 'docs/api/reference')
 
 const doc = JSON.parse(readFileSync(join(root, 'routes.json'), 'utf8'))
+
+/*
+ * The hand-written prose, synced from docs/api-reference.md by sync-guides.mjs.
+ *
+ * The route table answers "what exists and who may call it" and is generated so
+ * it cannot go stale. It does not answer "what do I send", which is the question
+ * somebody actually arrives with, and no amount of generating gets you there
+ * from a router: that the common name and the CSR are mutually exclusive is a
+ * fact about the handler, not the route.
+ *
+ * So each page carries both. Missing prose is not an error — a resource with no
+ * guide yet renders exactly as it did before.
+ */
+const guidesDir = join(root, 'guides')
+const guides = new Map()
+if (existsSync(guidesDir)) {
+  for (const file of readdirSync(guidesDir)) {
+    if (!file.endsWith('.md')) continue
+    guides.set(file.replace(/\.md$/, ''), readFileSync(join(guidesDir, file), 'utf8'))
+  }
+}
 
 /** Sections in the order a reader meets the product, not alphabetically. */
 const ORDER = [
@@ -119,6 +140,26 @@ function renderSection(section, routes) {
     )
   }
   lines.push('')
+
+  /*
+   * Order: the table, then the guide, then per-route detail.
+   *
+   * A reader scanning for an endpoint wants the table first and finds it at the
+   * top of every page. A reader who does not yet know which endpoint they want
+   * needs the prose, and it has to come before the route-by-route detail or it
+   * sits below a screen of tables nobody scrolled past.
+   */
+  const guide = guides.get(slug(section))
+  if (guide) {
+    const body = guide.replace(/^<!--[\s\S]*?-->\n*/, '').trim()
+    if (body) {
+      lines.push(body)
+      lines.push('')
+      lines.push('## Endpoint detail')
+      lines.push('')
+    }
+  }
+
   for (const r of routes) lines.push(renderRoute(r))
   return lines.join('\n')
 }
