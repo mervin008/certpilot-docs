@@ -28,13 +28,12 @@ const peak = Math.max(...census.methods.map((m) => m.count))
          than the empty half a centred hero leaves behind. -->
     <header class="hero">
       <div class="hero-copy">
-        <h1 class="hero-title">
-          The API is the router,<br />
-          and the router is the docs.
-        </h1>
+        <h1 class="hero-title">CertPilot REST API</h1>
         <p class="hero-lede">
-          {{ census.routeCount }} endpoints across {{ census.sectionCount }} areas of
-          CertPilot, extracted from the Go source with the role gate on every one.
+          {{ census.routeCount }} endpoints across {{ census.sectionCount }} areas of the
+          control plane: certificate issuance and renewal, CA health, discovery,
+          deployment, and host agents. Each endpoint table gives the role required
+          to call it.
         </p>
         <div class="hero-actions">
           <a class="act act-primary" :href="withBase('/api/')">Get started</a>
@@ -62,17 +61,6 @@ const peak = Math.max(...census.methods.map((m) => m.count))
       </aside>
     </header>
 
-    <!-- Full width, one message. A different layout family from the hero and
-         from the directory below it. -->
-    <section class="statement">
-      <p>
-        A hand-maintained route table has one failure mode and it is silent.
-        Somebody adds an endpoint, forgets the documentation, and the reference is
-        quietly wrong for six months. Every table on this site is generated, so a
-        missing route is not possible.
-      </p>
-    </section>
-
     <!-- The directory. On a reference site the most useful thing the home page
          can do is get out of the way and list what is actually here. -->
     <section class="directory">
@@ -90,8 +78,8 @@ const peak = Math.max(...census.methods.map((m) => m.count))
     <section class="roles">
       <h2 class="directory-head">Who can call what</h2>
       <p class="roles-lede">
-        Four roles, and the identity provider does not decide them. CertPilot
-        keeps roles in its own table, so a claim in a token cannot promote anyone.
+        Four roles, held in CertPilot's own table rather than read from a token
+        claim, so an identity provider cannot grant or change them.
       </p>
       <ol class="roles-scale">
         <li v-for="(r, i) in census.roles" :key="r">
@@ -125,8 +113,8 @@ const peak = Math.max(...census.methods.map((m) => m.count))
 }
 
 .hero-title {
-  /* Capped so the two lines the <br> asks for are the two lines that
-     render. At 3.25rem the second one wrapped and "docs." fell to a third. */
+  /* Capped rather than scaled freely: above this the title crowds the census
+     column beside it at tablet widths. */
   font-size: clamp(1.875rem, 3.4vw, 2.5rem);
   line-height: 1.08;
   letter-spacing: -0.028em;
@@ -263,21 +251,6 @@ const peak = Math.max(...census.methods.map((m) => m.count))
   color: var(--vp-c-text-1);
 }
 
-/* ── Statement ───────────────────────────────────────────────────────────── */
-.statement {
-  padding: 3.5rem 0;
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
-.statement p {
-  margin: 0;
-  font-size: 1.375rem;
-  line-height: 1.5;
-  letter-spacing: -0.012em;
-  color: var(--vp-c-text-1);
-  max-width: 62ch;
-}
-
 /* ── Directory ───────────────────────────────────────────────────────────── */
 .directory,
 .roles {
@@ -382,7 +355,6 @@ const peak = Math.max(...census.methods.map((m) => m.count))
 @media (max-width: 860px) {
   .home { padding: calc(var(--vp-nav-height) + 2rem) 1.25rem 4rem; }
   .hero { grid-template-columns: 1fr; gap: 2.5rem; }
-  .statement p { font-size: 1.125rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {

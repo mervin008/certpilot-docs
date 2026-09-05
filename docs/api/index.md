@@ -1,7 +1,14 @@
+<script setup>
+// Read rather than typed. This page claimed 109 endpoints against a router
+// serving 111 — the drift the generated tables exist to prevent, on the first
+// page a reader opens.
+import census from '../.vitepress/census-generated.json'
+</script>
+
 # Overview
 
-CertPilot's control plane exposes **109 endpoints**. All but one are under
-`/api/v1` and speak JSON.
+CertPilot's control plane exposes **{{ census.routeCount }} endpoints**. All but one
+are under `/api/v1` and speak JSON.
 
 ```
 https://certpilot.example.com/api/v1
