@@ -245,3 +245,66 @@ input,
   padding-left: 0;
   padding-right: 0;
 }
+
+/* ── The generated-from note ────────────────────────────────────────────────
+ * Provenance for whoever edits the page, sized as the aside it is. It was a
+ * filled info callout occupying the first screen of every reference page.
+ */
+.vp-doc .gen-note {
+  /* No negative margin. Pulling it up by half a rem ate the h1's own spacing
+     and the line collided with the title above it. */
+  margin: 0 0 2rem;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--vp-c-text-3);
+}
+
+.vp-doc .gen-note code {
+  font-size: 0.95em;
+  background: transparent;
+  padding: 0;
+  color: var(--vp-c-text-2);
+}
+
+/* ── HTTP methods ───────────────────────────────────────────────────────────
+ *
+ * The method is the first thing the eye looks for in a route table and it had
+ * the least weight on the row: plain grey text, indistinguishable from the
+ * path beside it until you read it.
+ *
+ * It gets shape rather than colour. Five coloured methods would be five things
+ * competing, and this product spends colour on severity; a bordered cell of
+ * fixed width makes the column scannable without spending any. DELETE stays
+ * the exception because in this API it rarely means "remove a row" — deleting
+ * a deployment target stops an estate being deployed to while every renewal
+ * carries on reporting success.
+ */
+.vp-doc td .m {
+  display: inline-block;
+  min-width: 5.25rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 2px;
+  background: var(--vp-c-bg-alt);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+  text-align: center;
+  font-weight: 600;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc td .m-delete {
+  color: var(--cp-critical);
+  border-color: color-mix(in srgb, var(--cp-critical) 45%, transparent);
+}
+
+/* The path is the row's subject, so it reads as the plain code it is rather
+   than as a decorated link. The underline arrives on hover. */
+.vp-doc td a code {
+  border-bottom: 1px solid transparent;
+  transition: border-color 120ms ease, color 120ms ease;
+}
+
+.vp-doc td a:hover code {
+  border-bottom-color: currentColor;
+}
