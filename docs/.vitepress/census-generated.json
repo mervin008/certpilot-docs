@@ -1,6 +1,6 @@
 {
-  "routeCount": 111,
-  "sectionCount": 19,
+  "routeCount": 121,
+  "sectionCount": 21,
   "roles": [
     "viewer",
     "auditor",
@@ -10,15 +10,15 @@
   "methods": [
     {
       "method": "GET",
-      "count": 45
+      "count": 47
     },
     {
       "method": "POST",
-      "count": 38
+      "count": 45
     },
     {
       "method": "PATCH",
-      "count": 1
+      "count": 2
     },
     {
       "method": "PUT",
@@ -30,6 +30,8 @@
     }
   ],
   "displayTokenReadable": 39,
+  "documentedBodies": 40,
+  "modelCount": 30,
   "source": "core/api/router.go",
   "sections": [
     {
@@ -46,7 +48,7 @@
     },
     {
       "text": "Certificates",
-      "count": 7
+      "count": 8
     },
     {
       "text": "PKI / CA Management",
@@ -101,12 +103,20 @@
       "count": 3
     },
     {
-      "text": "Sign-in discovery",
+      "text": "Accounts",
+      "count": 4
+    },
+    {
+      "text": "Audit record integrity",
       "count": 1
     },
     {
+      "text": "Sign-in discovery",
+      "count": 3
+    },
+    {
       "text": "The caller's own identity",
-      "count": 1
+      "count": 3
     }
   ]
 }

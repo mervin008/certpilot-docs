@@ -308,3 +308,88 @@ input,
 .vp-doc td a:hover code {
   border-bottom-color: currentColor;
 }
+
+/* ── Status codes ───────────────────────────────────────────────────────────
+ *
+ * The same bordered chip the method column uses, so a response table reads as
+ * the sibling of the route table it sits under rather than as a new kind of
+ * object.
+ *
+ * Colour follows the product's own rule — it means severity, and nothing else.
+ * A 5xx is the core or an upstream failing and is the one row on the page a
+ * person may have to act on; a 2xx is the outcome the caller wanted. 4xx sits
+ * between them uncoloured on purpose: it is the most common band in this API
+ * and colouring it would tint half of every table, which is how colour stops
+ * carrying meaning.
+ */
+.vp-doc td .s {
+  display: inline-block;
+  min-width: 2.75rem;
+  padding: 0.1rem 0.4rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 2px;
+  background: var(--vp-c-bg-alt);
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--vp-c-text-2);
+}
+
+.vp-doc td .s-2xx {
+  color: var(--cp-ok);
+  border-color: color-mix(in srgb, var(--cp-ok) 40%, transparent);
+}
+
+.vp-doc td .s-5xx {
+  color: var(--cp-critical);
+  border-color: color-mix(in srgb, var(--cp-critical) 45%, transparent);
+}
+
+/* The literal refusal strings, listed under the body they accompany. Set
+ * smaller and quieter than the row they hang off: they are what the endpoint
+ * will say, which matters most to somebody already holding the status code
+ * and wondering why. */
+.vp-doc td em {
+  display: inline-block;
+  padding-left: 0.75rem;
+  font-size: 0.85em;
+  font-style: normal;
+  color: var(--vp-c-text-2);
+  text-indent: -0.75rem;
+}
+
+/* ── Sub-headings inside a route ────────────────────────────────────────────
+ *
+ * "Parameters", "Request body", "Responses". They label the three tables a
+ * route can carry and repeat up to a hundred times on a page, so they are set
+ * as small tracked labels rather than as headings — at heading weight the
+ * page reads as an outline of the word "Responses".
+ *
+ * Excluded from the outline by config (level: [2, 3]) for the same reason.
+ */
+.vp-doc h4 {
+  margin: 1.75rem 0 0.5rem;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+}
+
+/* The example is folded away by default: it is the thing a reader wants
+ * second, after establishing what the endpoint takes, and unfolded it would
+ * put a screen of shell between consecutive routes. */
+.vp-doc details.details {
+  margin: 1rem 0 2.5rem;
+  border-radius: 2px;
+}
+
+.vp-doc details.details summary {
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--vp-c-text-2);
+}

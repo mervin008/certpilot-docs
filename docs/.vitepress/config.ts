@@ -67,6 +67,12 @@ export default defineConfig({
           link: s.link,
         })),
       },
+      {
+        // Where every "returns a Certificate" in the tables above lands.
+        text: 'Schemas',
+        collapsed: false,
+        items: [{ text: 'Objects', link: '/api/reference/models' }],
+      },
     ],
 
     socialLinks: [{ icon: 'github', link: CODE }],

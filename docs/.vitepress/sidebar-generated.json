@@ -17,7 +17,7 @@
   {
     "text": "Certificates",
     "link": "/api/reference/certificates",
-    "count": 7
+    "count": 8
   },
   {
     "text": "PKI / CA Management",
@@ -85,13 +85,23 @@
     "count": 3
   },
   {
+    "text": "Accounts",
+    "link": "/api/reference/accounts",
+    "count": 4
+  },
+  {
+    "text": "Audit record integrity",
+    "link": "/api/reference/audit-record-integrity",
+    "count": 1
+  },
+  {
     "text": "Sign-in discovery",
     "link": "/api/reference/sign-in-discovery",
-    "count": 1
+    "count": 3
   },
   {
     "text": "The caller's own identity",
     "link": "/api/reference/the-caller-s-own-identity",
-    "count": 1
+    "count": 3
   }
 ]
