@@ -60,15 +60,34 @@ differ widely:
 
 CertPilot stores all of these as text, in `users` and in every actor column.
 
-### Anonymous access
+### There is no anonymous access
 
-When `auth.allow_anonymous` is set, a request with **no** `Authorization` header
-at all is treated as admin. It is refused unless the server is in development
-mode on a loopback address.
+Every request needs a credential, including locally. There is no mode, flag or
+build in which CertPilot serves an unauthenticated caller.
 
-Presenting a *broken* token is still a 401. The distinction matters: falling
-through to admin on a rejected token would turn a failed login into a
-privilege escalation.
+`auth.allow_anonymous` used to treat a request with no `Authorization` header as
+admin, gated to development mode on a loopback address. The gate held; the
+feature was wrong anyway. It meant every local session ran as an unnamed
+superuser, which made the authorisation paths the least exercised code in the
+system and left the audit log attributing work to a subject nobody could be
+asked about. The uuid-subject defect that migration 028 fixed survived as long
+as it did for precisely that reason.
+
+The setting is still read, and **setting it now refuses to start**:
+
+```
+config: auth.allow_anonymous no longer exists and must be removed. CertPilot
+now requires a sign-in everywhere, including locally: use a local account, or
+configure auth.jwks_url for an identity provider
+```
+
+It fails rather than being ignored because an operator who has this set
+believes their instance is open, and silently dropping it would leave them
+believing that until somebody was refused.
+
+On first start the core creates the account named in `auth.bootstrap_admins`,
+generates a password and prints it once. That is how a fresh instance is
+reached — see [Roles and permissions](/api/roles).
 
 ## Unattended screens
 

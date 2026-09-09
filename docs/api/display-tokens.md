@@ -71,8 +71,9 @@ CertPilot's own frontend streams over `fetch` so that it can use the header.
 ## Failure behaviour
 
 A token that is unknown, revoked or expired is a **401**, and does *not* fall
-through to anonymous access. That matters: with anonymous access enabled for
-local evaluation, falling through would hand a rejected token an admin identity.
+through to any weaker identity. A rejected credential is a refusal, never a
+demotion to a lesser one — falling through is how a failed authentication turns
+into a privilege the caller was never granted.
 
 The rejection is logged with the reason — revoked, expired, unknown — but the
 caller learns only that it failed. An operator needs to know a revoked screen is
