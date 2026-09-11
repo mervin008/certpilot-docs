@@ -2,7 +2,7 @@
   "name": "certpilot-docs",
   "version": "0.1.0",
   "private": true,
-  "license": "MIT",
+  "license": "Apache-2.0",
   "description": "API documentation for CertPilot",
   "type": "module",
   "scripts": {
