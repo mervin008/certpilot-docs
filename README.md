@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/public/logo.svg" alt="" width="76" height="76" />
+</p>
+
 # CertPilot API documentation
 
 The public API reference for [CertPilot](https://github.com/certpilot/certpilot),

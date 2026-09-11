@@ -22,11 +22,21 @@ export default defineConfig({
   ignoreDeadLinks: false,
 
   head: [
+    // `base` is not applied to head entries the way it is to theme assets, so
+    // this path carries the subpath itself. Without it the icon 404s on the
+    // published site while working perfectly in `vitepress dev`.
+    [
+      'link',
+      { rel: 'icon', type: 'image/svg+xml', href: '/certpilot-docs/logo.svg' },
+    ],
     ['meta', { name: 'theme-color', content: '#5ac8fa' }],
     ['meta', { name: 'colour-scheme', content: 'dark light' }],
   ],
 
   themeConfig: {
+    // Base-relative: VitePress resolves theme asset paths against `base`.
+    logo: '/logo.svg',
+
     outline: { level: [2, 3], label: 'On this page' },
 
     nav: [
