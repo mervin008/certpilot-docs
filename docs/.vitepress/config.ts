@@ -1,8 +1,8 @@
 import { defineConfig } from 'vitepress'
 import generated from './sidebar-generated.json' with { type: 'json' }
 
-const REPO = 'https://github.com/mervin008/certpilot-docs'
-const CODE = 'https://github.com/mervin008/pki_project'
+const REPO = 'https://github.com/certpilot/certpilot-docs'
+const CODE = 'https://github.com/certpilot/certpilot'
 
 export default defineConfig({
   title: 'CertPilot API',

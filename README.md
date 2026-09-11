@@ -1,9 +1,9 @@
 # CertPilot API documentation
 
-The public API reference for [CertPilot](https://github.com/mervin008/pki_project),
+The public API reference for [CertPilot](https://github.com/certpilot/certpilot),
 built with [VitePress](https://vitepress.dev) and published to GitHub Pages.
 
-**https://mervin008.github.io/certpilot-docs/**
+**https://certpilot.github.io/certpilot-docs/**
 
 ## Why this repo exists separately
 

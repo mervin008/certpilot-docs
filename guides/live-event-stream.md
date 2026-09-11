@@ -28,4 +28,4 @@ re-sent on every resync, and no dashboard uses it.
 
 > Behind a reverse proxy, buffering must be off for this route or the stream
 > arrives in chunks and the display looks frozen. See
-> [`deploy/docker/nginx.conf`](https://github.com/mervin008/pki_project/blob/main/deploy/docker/nginx.conf).
+> [`deploy/docker/nginx.conf`](https://github.com/certpilot/certpilot/blob/main/deploy/docker/nginx.conf).

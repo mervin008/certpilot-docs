@@ -17,7 +17,7 @@ const target = join(root, 'routes.json')
 
 const SOURCE =
   process.env.CERTPILOT_ROUTES_URL ??
-  'https://raw.githubusercontent.com/mervin008/pki_project/main/docs/routes.json'
+  'https://raw.githubusercontent.com/certpilot/certpilot/main/docs/routes.json'
 
 const check = process.argv.includes('--check')
 

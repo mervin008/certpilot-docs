@@ -28,7 +28,7 @@ const outDir = join(root, 'guides')
 
 const SOURCE =
   process.env.CERTPILOT_GUIDE_URL ??
-  'https://raw.githubusercontent.com/mervin008/pki_project/main/docs/api-reference.md'
+  'https://raw.githubusercontent.com/certpilot/certpilot/main/docs/api-reference.md'
 
 const localPath = process.env.CERTPILOT_GUIDE_PATH
 const check = process.argv.includes('--check')
@@ -87,7 +87,7 @@ const SKIP = new Set([
 
 const slug = (s) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
 
-const CODE_TREE = 'https://github.com/mervin008/pki_project/blob/main'
+const CODE_TREE = 'https://github.com/certpilot/certpilot/blob/main'
 
 /*
  * Cross-references out of the imported prose.

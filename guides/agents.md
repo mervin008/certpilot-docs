@@ -77,7 +77,7 @@ A refused replay answers `401` with `"code": "agent_replay"`. An agent's own
 retries sign afresh with a new timestamp and never collide, so seeing this means
 something else is re-sending its traffic.
 
-The reference implementation is [`pkg/agentauth`](https://github.com/mervin008/pki_project/blob/main/pkg/agentauth), and
+The reference implementation is [`pkg/agentauth`](https://github.com/certpilot/certpilot/blob/main/pkg/agentauth), and
 `SigningString` is written out as its own exported function precisely so an
 agent in another language can reproduce it byte for byte.
 

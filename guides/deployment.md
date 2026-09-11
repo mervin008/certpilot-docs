@@ -75,7 +75,7 @@ can serve many certificates that land in different places on it.
 Signed exactly as an alert webhook is — `X-CertPilot-Signature` is the hex
 HMAC-SHA256 of `<unix-seconds> "." <raw body>`, with `X-CertPilot-Timestamp`
 carrying the seconds. One scheme, one implementation
-([`pkg/webhooksig`](https://github.com/mervin008/pki_project/blob/main/pkg/webhooksig)), so a receiver written once works for
+([`pkg/webhooksig`](https://github.com/certpilot/certpilot/blob/main/pkg/webhooksig)), so a receiver written once works for
 both.
 
 Two rules here are stricter than on a notification webhook, and both follow from
