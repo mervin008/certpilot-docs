@@ -96,7 +96,7 @@ export default defineConfig({
 
     footer: {
       message: `Released under the <a href="${CODE}/blob/main/LICENSE">Apache 2.0 licence</a>.`,
-      copyright: `Generated from <a href="${CODE}">core/api/router.go</a>`,
+      copyright: `© 2026 CertPilot · Generated from <a href="${CODE}">core/api/router.go</a>`,
     },
   },
 })
