@@ -95,7 +95,7 @@ export default defineConfig({
     search: { provider: 'local' },
 
     footer: {
-      message: 'CertPilot documentation',
+      message: `Released under the <a href="${CODE}/blob/main/LICENSE">Apache 2.0 licence</a>.`,
       copyright: `Generated from <a href="${CODE}">core/api/router.go</a>`,
     },
   },
