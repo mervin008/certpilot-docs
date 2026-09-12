@@ -100,6 +100,56 @@ none; `Health`, `Sign-in discovery`, `The caller's own identity`, `The agent
 API` and `Custom metadata fields` have no prose in the source yet, so those
 pages render as they always did.
 
+## Whole pages are vendored as well
+
+The guides are fragments of one file. `docs/architecture.md` in the code
+repository is a page in its own right -- the three decisions the system is built
+on, the processes, the request path, where the private keys are -- and it was in
+the same position the API prose used to be in: readable only after cloning the
+code.
+
+That is backwards for the one page a reader arrives on before they know what
+CertPilot is. Publishing it here means somebody deciding whether to run it gets
+an account of what it is, rather than a list of 121 endpoints.
+
+`scripts/sync-pages.mjs` fetches it whole. The only change on the way in is
+links: `security.md` and `../core/store/store.go` resolved to real things inside
+the code repository and to nothing here, so both become GitHub URLs. Anything
+still relative afterwards is a hard error -- this site fails the build on a dead
+link rather than shipping one, and a silent rewrite would produce a page
+promising an explanation it no longer points to.
+
+```bash
+npm run sync:pages                 # refresh from the default branch
+npm run sync:pages -- --check      # exit 1 if stale (CI runs this)
+
+# Author the page in the code repository, then sync from a local checkout:
+CERTPILOT_DOCS_DIR=../certpilot/docs npm run sync:pages
+```
+
+**Edit `docs/architecture.md` in the code repository, not here.** The synced
+copy carries a header saying so and sets `editLink: false`, because the edit
+button would otherwise offer to change a file the next sync overwrites.
+
+Each page in the manifest names a sentinel heading that must appear in what
+comes back. A file renamed upstream, or a 404 served as a 200, otherwise arrives
+as a page that builds cleanly and says nothing.
+
+### Diagrams
+
+The architecture page carries mermaid diagrams, rendered here by
+`vitepress-plugin-mermaid` and by GitHub natively, so one source displays in
+both places.
+
+Two constraints are worth knowing before adding one, because both produce a
+diagram that looks fine in isolation and wrong once published:
+
+- **A node label is at most two lines.** Mermaid sizes the box from the label it
+  measured and then draws it with different metrics; a third line is drawn
+  across the bottom edge of its own box.
+- **A cluster title is one line.** The second line is drawn where the first row
+  of nodes goes, and ends up behind them.
+
 ## Working on it
 
 ```bash
@@ -113,6 +163,8 @@ npm run preview  # serve the built site
 |:--|:--|
 | `npm run gen` | Regenerate the endpoint pages from `routes.json` |
 | `npm run sync` | Refresh `routes.json` from the CertPilot repository |
+| `npm run sync:guides` | Refresh the guide fragments from `docs/api-reference.md` |
+| `npm run sync:pages` | Refresh the whole pages, today just `architecture.md` |
 | `npm run check` | Fail if any route is undocumented or any anchor is broken |
 
 Hand-written pages live in `docs/api/` — authentication, roles, conventions,

@@ -12,6 +12,7 @@
     "gen": "node scripts/generate-endpoints.mjs",
     "sync": "node scripts/sync-routes.mjs",
     "sync:guides": "node scripts/sync-guides.mjs",
+    "sync:pages": "node scripts/sync-pages.mjs",
     "check": "node scripts/check-drift.mjs"
   },
   "devDependencies": {
@@ -19,6 +20,8 @@
   },
   "dependencies": {
     "@fontsource-variable/ibm-plex-sans": "^5.3.0",
-    "@fontsource-variable/jetbrains-mono": "^5.3.0"
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "mermaid": "^11.17.2",
+    "vitepress-plugin-mermaid": "^2.0.17"
   }
 }
