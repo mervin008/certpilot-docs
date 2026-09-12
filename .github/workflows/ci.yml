@@ -25,3 +25,10 @@ jobs:
       # and this site keeps serving the old one.
       - name: Verify the vendored guides are current
         run: npm run sync:guides -- --check
+
+      # The architecture page is a whole file from the code repository rather
+      # than a fragment, and drifts the same way. Worse, it is the page a reader
+      # who does not yet know what CertPilot is arrives on, so a stale one is
+      # wrong in front of exactly the audience least able to notice.
+      - name: Verify the vendored pages are current
+        run: npm run sync:pages -- --check
