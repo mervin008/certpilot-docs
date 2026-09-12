@@ -37,6 +37,10 @@ const peak = Math.max(...census.methods.map((m) => m.count))
         </p>
         <div class="hero-actions">
           <a class="act act-primary" :href="withBase('/api/')">Get started</a>
+          <!-- Second, not third. Somebody who has not met CertPilot before
+               cannot use an endpoint table yet, and this is the page that
+               tells them what the processes are. -->
+          <a class="act" :href="withBase('/architecture')">How it works</a>
           <a class="act" :href="withBase('/api/reference/dashboard')">Browse endpoints</a>
         </div>
       </div>
